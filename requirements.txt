@@ -1,7 +1,6 @@
-beautifulsoup
-bs4
+beautifulsoup4
 colorama
 pyfiglet
 requests
-urllib
+urllib3
 

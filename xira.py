@@ -10,13 +10,12 @@ module_name = "xira"
 __version__="0.1.0"
 
 
-import os
 import sys
 import colorama
 import requests
 import time
 from pprint import pprint
-from bs4 import BeautifulSoup as bs
+from bs4 import BeautifulSoup as bs 
 from urllib.parse import urljoin
 import json
 from payload import PayloadsInfo
@@ -44,7 +43,7 @@ except:
     pass
 #Check if we are running on windows os
 # Declare color variables with colorama
-
+""" FOR WINDOWS
 is_wind = sys.platform.startswith('win')
 
 if is_wind:
@@ -70,7 +69,12 @@ else:
     B = '\033[94m'  # blue
     R = '\033[91m'  # red
     W = '\033[0m'   # white
- 
+""" 
+G = '\033[92m'  # green
+Y = '\033[93m'  # yellow
+B = '\033[94m'  # blue
+R = '\033[91m'  # red
+W = '\033[0m'   # white
 
 def no_color():
    global G,B,Y,R,W
@@ -223,6 +227,6 @@ def xira(url):
   
         
 if __name__ == '__main__':
-    url = input( "%s Enter Target : " %(B) )
+    url = input( "%s Enter Target:" %(B) )
     print(xira(url))
        
