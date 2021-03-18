@@ -15,14 +15,20 @@ $ git clone https://github.com/xadhrit/xira.git
 $ cd xira
 
 # install the requirements
+ 
+For Linux
 $ python3 -m pip install -r requirements.txt
 
+For windows
+> python -m pip install -r requirements.txt
 ```
 
 ### Usage
 
 ```console
-$ python3 xira.py
+FOR LINUX/WINDOWS
+
+$ python3/python xira.py
 
 Enter the target's url : https://www.example.com
 ```
