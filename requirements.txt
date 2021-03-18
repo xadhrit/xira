@@ -1,0 +1,7 @@
+beautifulsoup
+bs4
+colorama
+pyfiglet
+requests
+urllib
+
