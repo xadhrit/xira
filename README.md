@@ -1,7 +1,8 @@
-## XIRA : xss vulnerablity scanner
+## XIRA : xss vulnerablity scanner 
 
-![xira](xira.png)
-
+<p align=center>
+<img src="xira.png"  height="400px" width="700px" alt="xira" />
+</p>
 
 
 ### Installation
@@ -26,7 +27,11 @@ $ python3 xira.py
 Enter the target's url : https://www.example.com
 ```
 
-![Enter url](ss1.png)
+<p align=center>
+<img src="ss1.png"  height="400px" width="700px" alt="xira" />
+</p>
+
+
 
 ### Results
 
@@ -35,7 +40,11 @@ Enter the target's url : https://www.example.com
 $ All details with successfull payloads.
 $ True
 ```
-![results](ss.png)
+
+<p align=center>
+<img src="ss.png"  height="400px" width="700px" alt="xira" />
+</p>
+
 
 ##### Todos :
 
@@ -47,7 +56,7 @@ $ True
 
 ```
 ###### Issues:
-contact me : <a href= "https://twitter.com/xadhrit">Twitter</a>
+Contact me : <a href= "https://twitter.com/xadhrit">Twitter</a>
             <a href="https://instagram.com/xadhrit">Instagram</a> 
             <p>Email :<strong>adhirt77@gmail.com</strong></p> 
              
