@@ -83,7 +83,7 @@ def no_color():
 def banner():
     xira_banner = Figlet(font='5lineoblique', justify='right')
     xb = Figlet(font='slant', justify='right' )
-    print(xb.renderText('XIRA'))
+    print(  R + xb.renderText('XIRA'))
     print( G + "                                   ~#  Coded by Adhrit.  twitter -- @xadhrit ")
 banner()
 
@@ -107,7 +107,7 @@ def get_form_details(form):
 
     # get the form action (target url)
     action = form.attrs.get("action").lower()
-
+    
     #get the form method (POST, GET, etc.)
     method = form.attrs.get("method", "get").lower()
 
@@ -140,7 +140,7 @@ def submit_form(form_details, url, value):
     target_url = urljoin(url, form_details["action"])
 
     # get the input fields
-    time.sleep(2)
+    
     inputs = form_details["inputs"]
     data = {}
 
@@ -184,7 +184,7 @@ def xira(url):
     #get all forms from the URL
     
     forms = get_all_forms(url)
-    print( '%s [+] Detected on %s forms on %s%s'%(R,len(forms), url ,Y ) ) 
+    print( '%s [+] Detected %s forms on %s%s'%(R,len(forms), url ,Y ) ) 
     if (len(forms)==0):
         print("Thus , we don't get any input form here. We are going out now! " )
     else:
@@ -212,6 +212,7 @@ def xira(url):
                                    print("%s [+] XSS Detected on %s%s" %( G, Y, url))
                                    print("%s [*] Form Details: %s%s" %(Y,B,R) )
                                    pprint(form_details)
+
                                    print("%s  Successful Payload : %s"%( G ,payload_name))
                                    is_vulnerable = True
                                  else:

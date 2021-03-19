@@ -43,7 +43,7 @@ Enter the target's url : https://www.example.com
 
 ```console
 
-$ All details with successfull payloads.
+$ All details with successful payloads.
 $ True
 ```
 
