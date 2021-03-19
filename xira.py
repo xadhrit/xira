@@ -84,7 +84,7 @@ def banner():
     xira_banner = Figlet(font='5lineoblique', justify='right')
     xb = Figlet(font='slant', justify='right' )
     print(xb.renderText('XIRA'))
-    print( G + "                                   ~~#~  Coded by Adhrit.  twitter -- @xadhrit ")
+    print( G + "                                   ~#  Coded by Adhrit.  twitter -- @xadhrit ")
 banner()
 
 def get_all_forms(url):
@@ -209,7 +209,7 @@ def xira(url):
                                  content = submit_form(form_details,url,payload_name).content.decode()
                                  if payload_name in content:
 
-                                   print("%s [+] XSS Detected on %s%s" %( G, Y, W))
+                                   print("%s [+] XSS Detected on %s%s" %( G, Y, url))
                                    print("%s [*] Form Details: %s%s" %(Y,B,R) )
                                    pprint(form_details)
                                    print("%s  Successful Payload : %s"%( G ,payload_name))

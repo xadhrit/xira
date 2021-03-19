@@ -1,7 +1,7 @@
 ## XIRA : xss vulnerablity scanner 
 
 <p align=center>
-<img src="xira.png"  height="400px" width="700px" alt="xira" />
+<img src="xira.png"  height="450px" width="800px" alt="xira" />
 </p>
 
 
@@ -34,7 +34,7 @@ Enter the target's url : https://www.example.com
 ```
 
 <p align=center>
-<img src="ss1.png"  height="400px" width="700px" alt="xira" />
+<img src="ss1.png"  height="450px" width="800px" alt="xira" />
 </p>
 
 
@@ -48,7 +48,7 @@ $ True
 ```
 
 <p align=center>
-<img src="ss.png"  height="400px" width="700px" alt="xira" />
+<img src="ss.png"  height="450px" width="800px" alt="xira" />
 </p>
 
 
@@ -58,6 +58,8 @@ $ True
 
 >> Adding sleep functionality that will prevent us to getting blocked
 
+>> Partition of Payloads
+ 
 >> Add more and smart payloads
 
 ```
