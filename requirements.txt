@@ -1,5 +1,5 @@
 beautifulsoup4
-bs4
+v 
 colorama
 pyfiglet
 requests
