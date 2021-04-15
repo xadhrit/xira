@@ -52,21 +52,14 @@ $ True
 </p>
 
 
-##### Todos :
+##### Payloads :
 
 ```console
 
->> Adding sleep functionality that will prevent us to getting blocked
-
->> Partition of Payloads
- 
->> Add more and smart payloads
+clone the repo : git clone https://github.com/xadhrit/xss-hacker.git
 
 ```
 ###### Issues:
 Contact me : <a href= "https://twitter.com/xadhrit">Twitter</a>
-            <a href="https://instagram.com/xadhrit">Instagram</a> 
-            <p>Email :<strong>adhirt77@gmail.com</strong></p> 
-             
-
+           
 
