@@ -52,9 +52,27 @@ $ True
 </p>
 
 ### Payloads Template
-We can use payload_template.json to use payloads from Seclists or wherever you want. final.json will be our new payload.json file for using in our XSS Scanning.
+We can use template.json to use payloads from Seclists or wherever you want. template.json will be our new payload.json file for using in our XSS Scanning. Change the name and make a copy before of payload.json from this repo, and template.json.
+```json
+{
+  "payload": [
+    {
+      "payload_name": " <h2>Basic injects</h2> "
+    }
+  ]
+}
+```
 ```bash
-while read line; do cat payload_template.json | jq --arg value "$line" '.payload[]|=.+{ "payload_name" : $value }' >> final.json;done < XSS-Jhaddix.txt
+#!/bin/bash
+filename='XSS-Jhaddix.txt'
+n=1
+while read line; do
+# reading each line
+jq --arg value "$line" '.payload|=.+[{ "payload_name" : $value }]' payload_template.json >tmp.json
+mv tmp.json payload_template.json
+echo "Line No. $n : $line"
+n=$((n+1))
+done < $filename
 ```
 
 ##### Payloads :
