@@ -51,6 +51,11 @@ $ True
 <img src="ss.png"  height="450px" width="800px" alt="xira" />
 </p>
 
+### Payloads Template
+We can use payload_template.json to use payloads from Seclists or wherever you want. final.json will be our new payload.json file for using in our XSS Scanning.
+```bash
+while read line; do cat payload_template.json | jq --arg value "$line" '.payload[]|=.+{ "payload_name" : $value }' >> final.json;done < XSS-Jhaddix.txt
+```
 
 ##### Payloads :
 
