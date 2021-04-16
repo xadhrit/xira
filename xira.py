@@ -4,10 +4,15 @@ Author: adhrit
 Github: https://github.com/imadhrit
 Description: Xira is a cross-site scripting vulnerablity scanner.
 Code Flow : First Collect all the forms from website then put payloads in input fields and display form and payload.
+Collaborator: @naivenom
 """ 
 
 module_name = "xira"
-__version__="0.1.0"
+__version__="0.1.1" 
+'''Build CSRF Token in hidden inputs and Cookie POST Requests. Use pattern hidden inputs, and include type email. Also include textarea, common in Contact Us Forms.
+Implemented Stored XSS functionality.
+Basic XSS detection according to HTML tags inyected in responses.
+'''
 
 
 import sys
@@ -89,8 +94,14 @@ banner()
 
 def get_all_forms(url):
     """Given a `url` , it returns all forms from the HTML content  """
-    soup = bs(requests.get(url).content, "html.parser")
-    return soup.find_all("form")
+    response = requests.get(url)
+    soup = bs(response.content, "html.parser")
+    if response.cookies:
+        for cookie in response.cookies:
+            print("Cookie Session= "+ cookie.value)
+        cookies = {cookie.name: cookie.value}
+        return soup.find_all("form"),cookies
+    return [soup.find_all("form")]
 
 def get_all_payloads():
     """Get all payloads from PayloadsInfo class object  
@@ -114,18 +125,31 @@ def get_form_details(form):
     # get all input details such as type and name
     inputs = []
 
-    for input_tag in form.find_all("input") :
-        payload_type = input_tag.attrs.get("type", "text")
+    for input_tag in form.find_all("input"):
+        payload_value=""
+        payload_type = input_tag.attrs.get("type")
         payload_name = input_tag.attrs.get("name")
-        inputs.append({"type": payload_type,"name": payload_name})
-
+        payload_pattern = input_tag.attrs.get("pattern")
+        if input_tag.attrs.get("pattern"):
+            pattern = payload_pattern
+        else:
+            pattern = None
+        if input_tag.attrs.get("type") == "hidden": #build valid common names of csrf protections. This check is just for valid hidden inputs
+            if input_tag.attrs.get("value"):
+                payload_value = input_tag.attrs.get("value")
+        inputs.append({"type": payload_type,"name": payload_name,"value":payload_value,"pattern":pattern})
+    pattern = None #Just needed pass into
+    for input_tag in form.find_all("textarea"): #Type tag doesn't exist, so hardcoded is needed.
+        payload_name = input_tag.attrs.get("name")
+        inputs.append({"type": "textarea", "name": payload_name, "value":payload_value, "pattern":pattern})
     #put everything to the resulting dictionary
     details["action"] = action
     details["method"] = method
     details["inputs"] = inputs
+    #print(details)
     return details
 
-def submit_form(form_details, url, value):
+def submit_form(form_details, url, value, cookies):
     """Submits a form given in `form details`
      
      Params:
@@ -137,30 +161,39 @@ def submit_form(form_details, url, value):
 
     """
     # Construct the full URL (if the url provided in action in relative)
-    target_url = urljoin(url, form_details["action"])
-
+    target_url = urljoin(url, form_details["action"]) #idx of tuple
+    
     # get the input fields
     
     inputs = form_details["inputs"]
     data = {}
-
+    #print(inputs)
     for input in inputs:
         # replace all text and search values with `value`
-
-        if input["type"] == "text" or input["type"] == "search":
+        if input["type"] == "text" or input["type"] == "search" or input["type"] == "email" or input["type"] == "textarea":
             input["value"] = value
-
+            if input["type"] == "email":
+                input["value"] = "some@blabla.com"
+            #print(input['pattern'])
+            if input['pattern']:
+                input["value"] = "http://evil.com"
         payload_name = input.get("name")
         payload_value = input.get("value")
         if payload_name and payload_value :
             # if payload name and value are not None,
             # then add them to the data of form submission
             data[payload_name] = payload_value
-
+    print(data)
     if form_details["method"] == "post":
-        return requests.post(target_url, data=data)
+        if cookies:
+            return requests.post(target_url, data=data, cookies=cookies)
+        else:
+            return requests.post(target_url, data=data)
     else:
-        return requests.get(target_url, params=data)
+        if cookies:
+            return requests.get(target_url, params=data, cookies=cookies)
+        else:
+            return requests.get(target_url, params=data)
 
 
 def xira(url):
@@ -184,8 +217,13 @@ def xira(url):
     #get all forms from the URL
     
     forms = get_all_forms(url)
-    print( '%s [+] Detected %s forms on %s%s'%(R,len(forms), url ,Y ) ) 
-    if (len(forms)==0):
+    print(forms[0])
+    if (len(forms) == 2): #Just take into account Cookie 
+        cookie = forms[1]
+    else:
+        cookie = None
+    print( '%s [+] Detected %s forms on %s%s'%(R,len(forms[0]), url ,Y ) ) 
+    if (len(forms[0])==0):
         print("Thus , we don't get any input form here. We are going out now! " )
     else:
         with open ('payload.json','r', encoding="utf-8") as file:
@@ -194,20 +232,22 @@ def xira(url):
              file.close()
              try:
                  is_vulnerable = False
-                 for form in forms:
+                 for form in forms[0]:
                      form_details = get_form_details(form)
-                          
+                     print(form_details)
                      for payload_name in payload_data.values():
                          print("Going through each payload : " )
                          for payload in payload_name:
                                
                              for payload_name in payload.values():
                                  
-                                 payload_name = str(payload_name)
+                                payload_name = str(payload_name)
                                 
                                 
-                                 content = submit_form(form_details,url,payload_name).content.decode()
-                                 if payload_name in content:
+                                content = submit_form(form_details,url,payload_name,cookie).content.decode()
+                                #print(content)
+                                get_req = requests.get(url) #Just check for XSS Stored
+                                if payload_name in content:
 
                                    print("%s [+] XSS Detected on %s%s" %( G, Y, url))
                                    print("%s [*] Form Details: %s%s" %(Y,B,R) )
@@ -215,7 +255,14 @@ def xira(url):
 
                                    print("%s  Successful Payload : %s"%( G ,payload_name))
                                    is_vulnerable = True
-                                 else:
+                                elif payload_name in get_req.text:
+                                    print("%s [+] XSS Detected on %s%s" %( G, Y, url))
+                                    print("%s [*] Form Details: %s%s" %(Y,B,R) )
+                                    pprint(form_details)
+                                    
+                                    print("%s  Successful Payload : %s"%( G ,payload_name))
+                                    is_vulnerable = True
+                                else:
                                    print("%s No XSS Found, WE LOSE HERE! " %(R) )
                
                  return is_vulnerable
