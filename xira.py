@@ -1,7 +1,7 @@
 """
 Date : 16-March-2021
 Author: adhrit
-Github: https://github.com/imadhrit
+Github: https://github.com/xadhrit
 Description: Xira is a cross-site scripting vulnerablity scanner.
 Code Flow : First Collect all the forms from website then put payloads in input fields and display form and payload.
 Collaborator: @naivenom
