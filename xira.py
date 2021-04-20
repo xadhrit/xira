@@ -1,14 +1,14 @@
 """
-Date : 16-March-2021
+Date : 20-April-2021
 Author: adhrit
-Github: https://github.com/xadhrit
+Github: https://github.com/imadhrit
 Description: Xira is a cross-site scripting vulnerablity scanner.
 Code Flow : First Collect all the forms from website then put payloads in input fields and display form and payload.
-Collaborator: @naivenom
+Contributor: @naivenom
 """ 
 
 module_name = "xira"
-__version__="0.1.1" 
+__version__="0.1.2" 
 '''Build CSRF Token in hidden inputs and Cookie POST Requests. Use pattern hidden inputs, and include type email. Also include textarea, common in Contact Us Forms.
 Implemented Stored XSS functionality.
 Basic XSS detection according to HTML tags inyected in responses.
@@ -25,8 +25,7 @@ from urllib.parse import urljoin
 import json
 from payload import PayloadsInfo
 from pyfiglet import Figlet
-
-
+import re
 
 # Checking python version
 if sys.version > '3':
@@ -90,6 +89,7 @@ def banner():
     xb = Figlet(font='slant', justify='right' )
     print(  R + xb.renderText('XIRA'))
     print( G + "                                   ~#  Coded by Adhrit.  twitter -- @xadhrit ")
+    print( G + "                                   ~#  Contributor: Naivenom.  twitter -- @naivenom ")
 banner()
 
 def get_all_forms(url):
@@ -183,7 +183,7 @@ def submit_form(form_details, url, value, cookies):
             # if payload name and value are not None,
             # then add them to the data of form submission
             data[payload_name] = payload_value
-    print(data)
+    #print(data)
     if form_details["method"] == "post":
         if cookies:
             return requests.post(target_url, data=data, cookies=cookies)
@@ -194,6 +194,7 @@ def submit_form(form_details, url, value, cookies):
             return requests.get(target_url, params=data, cookies=cookies)
         else:
             return requests.get(target_url, params=data)
+
 
 
 def xira(url):
@@ -217,6 +218,7 @@ def xira(url):
     #get all forms from the URL
     
     forms = get_all_forms(url)
+    redirect = False
     print(forms[0])
     if (len(forms) == 2): #Just take into account Cookie 
         cookie = forms[1]
@@ -228,26 +230,46 @@ def xira(url):
     else:
         with open ('payload.json','r', encoding="utf-8") as file:
              payload_data = json.load(file)
-             
              file.close()
              try:
                  is_vulnerable = False
                  for form in forms[0]:
                      form_details = get_form_details(form)
                      print(form_details)
+                     
                      for payload_name in payload_data.values():
                          print("Going through each payload : " )
-                         for payload in payload_name:
-                               
-                             for payload_name in payload.values():
-                                 
+                         for payload in payload_name: 
+                             for payload_name in payload.values(): 
                                 payload_name = str(payload_name)
-                                
-                                
+                                #print("PAYLOAD ->> ",payload_name)
+
+                                content_raw = submit_form(form_details,url,payload_name,cookie)
+                                if content_raw.history:
+                                    #Its common that Contact Form have redirections, so take account that and check for stored o reflected in main URI
+                                    if str(content_raw.history[0])[11:14] == "302":
+                                        redirect = True
                                 content = submit_form(form_details,url,payload_name,cookie).content.decode()
-                                #print(content)
-                                get_req = requests.get(url) #Just check for XSS Stored
-                                if payload_name in content:
+                                
+                                soup = bs(content, "html.parser")
+                                elem = [soup.get_text()]
+                                matches = [match for match in elem if payload_name in match]
+                                #print(matches) # If match, we confirm our payload within html tags, as data. 
+
+                                if redirect:
+                                    check_stored = requests.get(url) #Just check for XSS Stored
+                                    redirect = False
+                                    if payload_name in check_stored.text:
+                                        print("%s [+] XSS Detected on %s%s" %( G, Y, url))
+                                        print("%s [*] Form Details: %s%s" %(Y,B,R) )
+                                        pprint(form_details)
+                                        
+                                        print("%s  Successful Payload : %s"%( G ,payload_name))
+                                        is_vulnerable = True
+
+                                if matches:
+                                    print("%s No XSS Found, WE LOSE HERE! " %(R) )
+                                elif payload_name in content:
 
                                    print("%s [+] XSS Detected on %s%s" %( G, Y, url))
                                    print("%s [*] Form Details: %s%s" %(Y,B,R) )
@@ -255,15 +277,10 @@ def xira(url):
 
                                    print("%s  Successful Payload : %s"%( G ,payload_name))
                                    is_vulnerable = True
-                                elif payload_name in get_req.text:
-                                    print("%s [+] XSS Detected on %s%s" %( G, Y, url))
-                                    print("%s [*] Form Details: %s%s" %(Y,B,R) )
-                                    pprint(form_details)
-                                    
-                                    print("%s  Successful Payload : %s"%( G ,payload_name))
-                                    is_vulnerable = True
                                 else:
                                    print("%s No XSS Found, WE LOSE HERE! " %(R) )
+                        
+                                
                
                  return is_vulnerable
             
@@ -272,9 +289,10 @@ def xira(url):
                   pass
      
    
-  
+
         
 if __name__ == '__main__':
     url = input( "%s Enter Target:" %(B) )
     print(xira(url))
        
+
