@@ -1,5 +1,5 @@
 """
-Date : 20-April-2021
+Date : 22-April-2021
 Author: adhrit
 Github: https://github.com/imadhrit
 Description: Xira is a cross-site scripting vulnerablity scanner.
@@ -15,7 +15,7 @@ Basic XSS detection according to HTML tags inyected in responses.
 '''
 
 
-import sys
+import sys, getopt
 import colorama
 import requests
 import time
@@ -253,19 +253,31 @@ def xira(url):
                                 
                                 soup = bs(content, "html.parser")
                                 elem = [soup.get_text()]
+                             
                                 matches = [match for match in elem if payload_name in match]
                                 #print(matches) # If match, we confirm our payload within html tags, as data. 
 
+                                xss_attr = None
+                                for tag in soup.find_all(re.compile("^i")): #Just checking for XSS reflected into attribute with angle brackets HTML-encoded
+                                    xss_attr = [match for match in tag.attrs if "on" in match] #on* events
+                                    
                                 if redirect:
                                     check_stored = requests.get(url) #Just check for XSS Stored
                                     redirect = False
+                                    soup = bs(check_stored.text, "html.parser")
                                     if payload_name in check_stored.text:
-                                        print("%s [+] XSS Detected on %s%s" %( G, Y, url))
+                                        print("%s [+] Input Stored triggered on %s%s" %( G, Y, url))
                                         print("%s [*] Form Details: %s%s" %(Y,B,R) )
                                         pprint(form_details)
                                         
                                         print("%s  Successful Payload : %s"%( G ,payload_name))
                                         is_vulnerable = True
+                                    else:
+                                        print("%s No Input Stored triggered. " %(R) )
+                                if xss_attr:
+                                    print("%s [+] XSS Detected on %s%s" %( G, Y, url))
+                                    print("%s [*] Form Details: %s%s" %(Y,B,R) )
+                                    pprint(form_details)
 
                                 if matches:
                                     print("%s No XSS Found, WE LOSE HERE! " %(R) )
@@ -279,9 +291,8 @@ def xira(url):
                                    is_vulnerable = True
                                 else:
                                    print("%s No XSS Found, WE LOSE HERE! " %(R) )
-                        
                                 
-               
+                                
                  return is_vulnerable
             
              except Exception as error:
@@ -292,7 +303,16 @@ def xira(url):
 
         
 if __name__ == '__main__':
-    url = input( "%s Enter Target:" %(B) )
-    print(xira(url))
+    try:
+      opts, args = getopt.getopt(sys.argv[1:],"hu:",["url="])
+    except getopt.GetoptError:
+        print('xira.py -u <url>')
+        sys.exit(2)
+    for opt, arg in opts:
+        if opt == '-h':
+            print('xira.py -u <url>')
+            sys.exit()
+        elif opt in ("-u", "--url"):
+            url = arg
+            print(xira(url))
        
-
