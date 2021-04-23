@@ -219,7 +219,7 @@ def xira(url):
     
     forms = get_all_forms(url)
     redirect = False
-    print(forms[0])
+    #print(forms[0])
     if (len(forms) == 2): #Just take into account Cookie 
         cookie = forms[1]
     else:
@@ -294,6 +294,9 @@ def xira(url):
                                 
                                 
                  return is_vulnerable
+             except KeyboardInterrupt as key:
+                 print(key)
+                 pass
             
              except Exception as error:
                   print (error)
