@@ -28,7 +28,7 @@ For windows
 ```console
 FOR LINUX/WINDOWS
 
-$ python3/python xira.py
+$ python3/python xira.py -u <url>
 
 Enter the target's url : https://www.example.com
 ```
