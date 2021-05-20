@@ -33,11 +33,6 @@ $ python3/python xira.py -u <url>
 Enter the target's url : https://www.example.com
 ```
 
-<p align=center>
-<img src="ss1.png"  height="450px" width="800px" alt="xira" />
-</p>
-
-
 
 ### Results
 
@@ -46,10 +41,6 @@ Enter the target's url : https://www.example.com
 $ All details with successful payloads.
 $ True
 ```
-
-<p align=center>
-<img src="ss.png"  height="450px" width="800px" alt="xira" />
-</p>
 
 ### Payloads Template
 We can use template.json to use payloads from Seclists or wherever you want. template.json will be our new payload.json file for using in our XSS Scanning. Change the name and make a copy before of payload.json from this repo, and template.json.
