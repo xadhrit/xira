@@ -92,8 +92,21 @@ def banner():
     print( G + "                                   ~#  Contributor: Naivenom.  twitter -- @naivenom ")
 banner()
 
+def custom_cookie(url):
+    res = requests.get(url)
+    soup = bs(res.content, "html.parser")
+    if res.cookies:
+        for cookie in res.cookies:
+            cookie = input("Enter cookie : ")
+            print("Cookie Session = "+ cookie)
+        cookies = {cookie}
+        return soup.find_all("form"), cookies
+    return [soup.find_all("form")]
+
+
 def get_all_forms(url):
     """Given a `url` , it returns all forms from the HTML content  """
+   
     response = requests.get(url)
     soup = bs(response.content, "html.parser")
     if response.cookies:
@@ -216,7 +229,7 @@ def xira(url):
     """
     
     #get all forms from the URL
-    
+    #forms = custom_cookie(url)
     forms = get_all_forms(url)
     redirect = False
     #print(forms[0])
@@ -314,8 +327,12 @@ if __name__ == '__main__':
     for opt, arg in opts:
         if opt == '-h':
             print('xira.py -u <url>')
+            print('xira.py -c <cookie> -u <url>')
             sys.exit()
         elif opt in ("-u", "--url"):
             url = arg
+            print(xira(url))
+        elif opt in ("-c", "--cookie", "-u", "--url"):
+            cookie = arg
             print(xira(url))
        
