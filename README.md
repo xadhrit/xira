@@ -1,7 +1,7 @@
 ## XIRA : xss vulnerablity scanner 
 
 <p align=center>
-<img src="xira.png"  height="450px" width="800px" alt="xira" />
+<img src="img/xira.png"  height="450px" width="800px" alt="xira" />
 </p>
 
 
