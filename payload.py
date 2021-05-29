@@ -1,9 +1,16 @@
+"""
+xira payload module : 
+    for payload cheatsheet checkout: "https://github.com/xadhrit/xss-hacker"
+
+"""
+
 import json
 import requests
 
 class PayloadInformation( ):
     def __init__(self, key ,payload_name):
         """  Create Payload Information Object
+        
 
         self    ---     This Object
         key     ---     Key for payload
