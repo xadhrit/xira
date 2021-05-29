@@ -75,5 +75,11 @@ clone the repo : git clone https://github.com/xadhrit/xss-hacker.git
 ```
 ###### Issues:
 Contact me : <a href= "https://twitter.com/xadhrit">Twitter</a>
+<br />
+*Open an issue on github.com/xadhrit/xira/issues/*
+
+**LICENSE**
+
+*Distributed Under MIT License*
            
 
