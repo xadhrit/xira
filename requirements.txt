@@ -1,7 +1,4 @@
-beautifulsoup4
-v 
-colorama
+beautifulsoup4==4.9.3
+colorama==0.4.4
 pyfiglet
-requests
-urllib3
 
