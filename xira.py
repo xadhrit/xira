@@ -85,12 +85,13 @@ def no_color():
    G=B=R=Y=W=''
 
 def banner():
-    xira_banner = Figlet(font='5lineoblique', justify='right')
+    xira_banner = Figlet(justify='right')
     xb = Figlet(font='slant', justify='right' )
-    print(  R + xb.renderText('XIRA'))
-    print( G + "                                   ~#  Coded by Adhrit.  twitter -- @xadhrit ")
-    print( G + "                                   ~#  Contributor: Naivenom.  twitter -- @naivenom ")
+    print(  G + xb.renderText('XIRA'))
+    print( R + "                                   ~#  Coded by Adhrit.  twitter -- @xadhrit ")
+    print( W + "                                   ~#  Contributor: Naivenom.  twitter -- @naivenom ")
 banner()
+
 
 def custom_cookie(url):
     res = requests.get(url)
@@ -208,8 +209,7 @@ def submit_form(form_details, url, value, cookies):
         else:
             return requests.get(target_url, params=data)
 
-
-
+#main xira function
 def xira(url):
     
     """
@@ -223,11 +223,8 @@ def xira(url):
              >> if find XSS :
                       return  True, form details
              >> else:
-                      return  False (default)
-           
-                 
-    """
-    
+                      return  False (default)      
+    """ 
     #get all forms from the URL
     #forms = custom_cookie(url)
     forms = get_all_forms(url)
