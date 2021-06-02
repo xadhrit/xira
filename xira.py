@@ -5,16 +5,11 @@ Github: https://github.com/imadhrit
 Description: Xira is a cross-site scripting vulnerablity scanner.
 Code Flow : First Collect all the forms from website then put payloads in input fields and display form and payload.
 Contributor: @naivenom
-""" 
 
-module_name = "xira"
-__version__="0.1.2" 
-'''Build CSRF Token in hidden inputs and Cookie POST Requests. Use pattern hidden inputs, and include type email. Also include textarea, common in Contact Us Forms.
+Build CSRF Token in hidden inputs and Cookie POST Requests. Use pattern hidden inputs, and include type email. Also include textarea, common in Contact Us Forms.
 Implemented Stored XSS functionality.
 Basic XSS detection according to HTML tags inyected in responses.
-'''
-
-
+"""
 import sys, getopt
 import colorama
 import requests
@@ -92,7 +87,6 @@ def banner():
     print( W + "                                   ~#  Contributor: Naivenom.  twitter -- @naivenom ")
 banner()
 
-
 def custom_cookie(url):
     res = requests.get(url)
     soup = bs(res.content, "html.parser")
@@ -103,7 +97,6 @@ def custom_cookie(url):
         cookies = {cookie}
         return soup.find_all("form"), cookies
     return [soup.find_all("form")]
-
 
 def get_all_forms(url):
     """Given a `url` , it returns all forms from the HTML content  """
@@ -312,9 +305,7 @@ def xira(url):
                   print (error)
                   pass
      
-   
-
-        
+         
 if __name__ == '__main__':
     try:
       opts, args = getopt.getopt(sys.argv[1:],"hu:",["url="])
@@ -331,5 +322,4 @@ if __name__ == '__main__':
             print(xira(url))
         elif opt in ("-c", "--cookie", "-u", "--url"):
             cookie = arg
-            print(xira(url))
-       
+            print(xira(url))      
