@@ -300,6 +300,10 @@ def xira(url):
              except KeyboardInterrupt as key:
                  print(key)
                  pass
+
+             except ConnectionError as error:
+                 print(error)
+                 pass
             
              except Exception as error:
                   print (error)
