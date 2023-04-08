@@ -326,4 +326,8 @@ if __name__ == '__main__':
             print(xira(url))
         elif opt in ("-c", "--cookie", "-u", "--url"):
             cookie = arg
-            print(xira(url))      
+            print(xira(url)) 
+    except KeyboardInterrupt:
+        print('\n[!] Keyboard Interrupt detected....Exiting\n')
+        sys.exit(0)
+
